@@ -105,10 +105,53 @@ public class VistaColegio extends javax.swing.JFrame {
         pnlEstudiante.add(btnGuardarEst);
 
         btnGuardarEst.addActionListener(evt -> accionRegistrarEstudiante());
+
+        
+        // profesor
+        pnlProfesor.setLayout(new java.awt.GridLayout(9, 2, 8, 8));
+        pnlProfesor.setBorder(javax.swing.BorderFactory.createEmptyBorder(15, 15, 15, 15));
+
+        txtNomProf = new javax.swing.JTextField();
+        txtDirProf = new javax.swing.JTextField();
+        txtTelProf = new javax.swing.JTextField();
+        txtDiaProf = new javax.swing.JTextField(3);
+        txtMesProf = new javax.swing.JTextField(3);
+        txtAnioProf = new javax.swing.JTextField(5);
+        txtCedProf = new javax.swing.JTextField();
+        txtAreaProf = new javax.swing.JTextField();
+        txtSalHoraProf = new javax.swing.JTextField();
+        txtHorasProf = new javax.swing.JTextField();
+        btnGuardarProf = new javax.swing.JButton("Registrar Profesor");
+
+        javax.swing.JPanel pnlFechaProf = new javax.swing.JPanel(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 4, 0));
+        pnlFechaProf.add(new javax.swing.JLabel("Día:"));
+        pnlFechaProf.add(txtDiaProf);
+        pnlFechaProf.add(new javax.swing.JLabel("Mes:"));
+        pnlFechaProf.add(txtMesProf);
+        pnlFechaProf.add(new javax.swing.JLabel("Año:"));
+        pnlFechaProf.add(txtAnioProf);
+
+        pnlProfesor.add(new javax.swing.JLabel("Nombre completo:"));
+        pnlProfesor.add(txtNomProf);
+        pnlProfesor.add(new javax.swing.JLabel("Dirección:"));
+        pnlProfesor.add(txtDirProf);
+        pnlProfesor.add(new javax.swing.JLabel("Teléfono:"));
+        pnlProfesor.add(txtTelProf);
+        pnlProfesor.add(new javax.swing.JLabel("Fecha de Nacimiento:"));
+        pnlProfesor.add(pnlFechaProf);
+        pnlProfesor.add(new javax.swing.JLabel("Cédula (Mayor de edad):"));
+        pnlProfesor.add(txtCedProf);
+        pnlProfesor.add(new javax.swing.JLabel("Área de trabajo:"));
+        pnlProfesor.add(txtAreaProf);
+        pnlProfesor.add(new javax.swing.JLabel("Salario por Hora ($):"));
+        pnlProfesor.add(txtSalHoraProf);
+        pnlProfesor.add(new javax.swing.JLabel("Horas dictadas en el mes:"));
+        pnlProfesor.add(txtHorasProf);
+        pnlProfesor.add(new javax.swing.JLabel(""));
+        pnlProfesor.add(btnGuardarProf);
+
+        btnGuardarProf.addActionListener(evt -> accionRegistrarProfesor());
     }
-    
-    // profesor
-    
     
     
     // registar
@@ -143,5 +186,37 @@ public class VistaColegio extends javax.swing.JFrame {
         }
     }
     
+    private void accionRegistrarProfesor() {
+        try {
+            String nombre = txtNomProf.getText().trim();
+            String dir = txtDirProf.getText().trim();
+            String tel = txtTelProf.getText().trim();
+            int dia = Integer.parseInt(txtDiaProf.getText().trim());
+            int mes = Integer.parseInt(txtMesProf.getText().trim());
+            int anio = Integer.parseInt(txtAnioProf.getText().trim());
+            String cedula = txtCedProf.getText().trim();
+            String area = txtAreaProf.getText().trim();
+            double salHora = Double.parseDouble(txtSalHoraProf.getText().trim());
+            int horas = Integer.parseInt(txtHorasProf.getText().trim());
+
+            String respuesta = controlador.registrarProfesor(nombre, dir, tel, dia, mes, anio, cedula, area, salHora, horas);
+            JOptionPane.showMessageDialog(this, respuesta);
+
+            if (respuesta.startsWith("Profesor registrado")) {
+                txtNomProf.setText("");
+                txtDirProf.setText("");
+                txtTelProf.setText("");
+                txtDiaProf.setText("");
+                txtMesProf.setText("");
+                txtAnioProf.setText("");
+                txtCedProf.setText("");
+                txtAreaProf.setText("");
+                txtSalHoraProf.setText("");
+                txtHorasProf.setText("");
+            }
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(this, "Error: Verifique que fecha, salario por hora y horas dictadas sean numéricos.");
+        }
+    }
     
 }
