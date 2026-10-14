@@ -1,0 +1,27 @@
+
+# Ignorar la carpeta de salida donde Maven compila el código y genera los .jar
+target/
+*.class
+
+# Ignorar archivos logs y reportes de pruebas (si usas JUnit/Surefire)
+*.log
+crash-[0-9]*
+
+
+# NetBeans guarda configuraciones locales de usuario aquí (como el tamaño de ventanas o el JDK local)
+nbproject/private/
+/nbproject/html_editor_properties.xml
+
+
+.netbeans_automatic_build
+build/
+dist/
+
+
+
+# Archivos temporales del sistema operativo
+Thumbs.db
+.DS_Store
+
+# Archivos temporales creados por el diseñador Swing (Matisse) de NetBeans si aplica
+*.form.bak
