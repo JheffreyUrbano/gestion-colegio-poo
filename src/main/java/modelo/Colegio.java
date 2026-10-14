@@ -65,5 +65,22 @@ public class Colegio {
         this.cantidadProfesores = cantidadProfesores;
     }
     
+    public boolean agregarEstudiante(Estudiante e) {
+        if (e != null && cantidadEstudiantes < estudiantes.length) {
+            estudiantes[cantidadEstudiantes] = e;
+            cantidadEstudiantes++;
+            return true;
+        }
+        return false;
+    }
+
+    public boolean agregarProfesor(Profesor p) {
+        if (p != null && cantidadProfesores < profesores.length) {
+            profesores[cantidadProfesores] = p;
+            cantidadProfesores++;
+            return true;
+        }
+        return false;
+    }
     
 }
