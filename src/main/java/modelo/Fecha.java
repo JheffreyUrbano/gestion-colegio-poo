@@ -46,5 +46,30 @@ public class Fecha {
     public void setAnio(int anio) {
         this.anio = anio;
     }
+    
+    
+    public static boolean esValida(int dia, int mes, int anio) {
+        if (anio < 1920 || anio > LocalDate.now().getYear()) {
+            return false;
+        }
+        if (mes < 1 || mes > 12) {
+            return false;
+        }
+        int[] diasPorMes = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+        if ((anio % 4 == 0 && anio % 100 != 0) || (anio % 400 == 0)) {
+            diasPorMes[1] = 29;
+        }
+        return dia >= 1 && dia <= diasPorMes[mes - 1];
+    }
 
+    public static Fecha hoy() {
+        LocalDate actual = LocalDate.now();
+        return new Fecha(actual.getDayOfMonth(), actual.getMonthValue(), actual.getYear());
+    }
+
+    @Override
+    public String toString() {
+        return String.format("%02d/%02d/%04d", dia, mes, anio);
+    }
+    
 }
