@@ -1,8 +1,11 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package vista;
+
+import controlador.ControladorColegio;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -52,30 +55,93 @@ public class VistaColegio extends javax.swing.JFrame {
         this.controlador = controlador;
     }
     
-    
-    
-    
-    
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Sistema de Gestión Escolar - MVC");
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
+        pestanas = new javax.swing.JTabbedPane();
+        pnlEstudiante = new javax.swing.JPanel();
+        pnlProfesor = new javax.swing.JPanel();
+        pnlReportes = new javax.swing.JPanel();
 
-        pack();
-    }// </editor-fold>//GEN-END:initComponents
+        // estudiante
+        pnlEstudiante.setLayout(new java.awt.GridLayout(8, 2, 8, 8));
+        pnlEstudiante.setBorder(javax.swing.BorderFactory.createEmptyBorder(15, 15, 15, 15));
 
-  
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    // End of variables declaration//GEN-END:variables
+        txtNomEst = new javax.swing.JTextField();
+        txtDirEst = new javax.swing.JTextField();
+        txtTelEst = new javax.swing.JTextField();
+        txtDiaEst = new javax.swing.JTextField(3);
+        txtMesEst = new javax.swing.JTextField(3);
+        txtAnioEst = new javax.swing.JTextField(5);
+        txtCodEst = new javax.swing.JTextField();
+        txtGradoEst = new javax.swing.JTextField();
+        txtPromEst = new javax.swing.JTextField();
+        btnGuardarEst = new javax.swing.JButton("Registrar Estudiante");
+
+        javax.swing.JPanel pnlFechaEst = new javax.swing.JPanel(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 4, 0));
+        pnlFechaEst.add(new javax.swing.JLabel("Día:"));
+        pnlFechaEst.add(txtDiaEst);
+        pnlFechaEst.add(new javax.swing.JLabel("Mes:"));
+        pnlFechaEst.add(txtMesEst);
+        pnlFechaEst.add(new javax.swing.JLabel("Año:"));
+        pnlFechaEst.add(txtAnioEst);
+
+        pnlEstudiante.add(new javax.swing.JLabel("Nombre completo:"));
+        pnlEstudiante.add(txtNomEst);
+        pnlEstudiante.add(new javax.swing.JLabel("Dirección:"));
+        pnlEstudiante.add(txtDirEst);
+        pnlEstudiante.add(new javax.swing.JLabel("Teléfono:"));
+        pnlEstudiante.add(txtTelEst);
+        pnlEstudiante.add(new javax.swing.JLabel("Fecha de Nacimiento:"));
+        pnlEstudiante.add(pnlFechaEst);
+        pnlEstudiante.add(new javax.swing.JLabel("Código estudiantil:"));
+        pnlEstudiante.add(txtCodEst);
+        pnlEstudiante.add(new javax.swing.JLabel("Grado / Curso:"));
+        pnlEstudiante.add(txtGradoEst);
+        pnlEstudiante.add(new javax.swing.JLabel("Promedio (0.0 - 5.0):"));
+        pnlEstudiante.add(txtPromEst);
+        pnlEstudiante.add(new javax.swing.JLabel(""));
+        pnlEstudiante.add(btnGuardarEst);
+
+        btnGuardarEst.addActionListener(evt -> accionRegistrarEstudiante());
+    }
+    
+    // profesor
+    
+    
+    
+    // registar
+    private void accionRegistrarEstudiante() {
+        try {
+            String nombre = txtNomEst.getText().trim();
+            String dir = txtDirEst.getText().trim();
+            String tel = txtTelEst.getText().trim();
+            int dia = Integer.parseInt(txtDiaEst.getText().trim());
+            int mes = Integer.parseInt(txtMesEst.getText().trim());
+            int anio = Integer.parseInt(txtAnioEst.getText().trim());
+            String cod = txtCodEst.getText().trim();
+            String grado = txtGradoEst.getText().trim();
+            double prom = Double.parseDouble(txtPromEst.getText().trim());
+
+            String respuesta = controlador.registrarEstudiante(nombre, dir, tel, dia, mes, anio, cod, grado, prom);
+            JOptionPane.showMessageDialog(this, respuesta);
+
+            if (respuesta.startsWith("Estudiante registrado")) {
+                txtNomEst.setText("");
+                txtDirEst.setText("");
+                txtTelEst.setText("");
+                txtDiaEst.setText("");
+                txtMesEst.setText("");
+                txtAnioEst.setText("");
+                txtCodEst.setText("");
+                txtGradoEst.setText("");
+                txtPromEst.setText("");
+            }
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(this, "Error: Verifique que la fecha y el promedio sean valores numéricos.");
+        }
+    }
+    
+    
 }
