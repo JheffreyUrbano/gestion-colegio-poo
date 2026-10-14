@@ -61,6 +61,43 @@ public class ControladorColegio {
         }
     }
     
-    
-    
+    public String registrarProfesor(String nombre, String direccion, String telefono,
+            int dia, int mes, int anio, String cedula, String area,
+            double salarioHora, int horasDictadas) {
+
+        if (nombre.isEmpty() || cedula.isEmpty() || area.isEmpty()) {
+            return "Error: Nombre, cédula y área son obligatorios.";
+        }
+        if (!Fecha.esValida(dia, mes, anio)) {
+            return "Error: La fecha de nacimiento ingresada no es válida.";
+        }
+        if (salarioHora <= 0 || horasDictadas <= 0) {
+            return "Error: El salario por hora y las horas dictadas deben ser mayores a cero.";
+        }
+
+        Fecha fechaNac = new Fecha(dia, mes, anio);
+
+        // constructor de profesor (unica subclase que lo tiene)
+        Profesor prof = new Profesor(nombre, direccion, telefono, fechaNac,
+                cedula, area, salarioHora, horasDictadas);
+
+        // validacion si los profesores son mayores de edad
+        if (prof.calcularEdad() < 18) {
+            return "Error: El profesor debe ser mayor de edad (tiene " + prof.calcularEdad() + " años).";
+        }
+
+        if (colegio.agregarProfesor(prof)) {
+            return "Profesor registrado exitosamente.";
+        } else {
+            return "Error: Cupo de profesores lleno.";
+        }
+    }
+
+    public String obtenerReporteEstudiantes() {
+        return colegio.reporteEstudiantes();
+    }
+
+    public String obtenerReporteProfesores() {
+        return colegio.reporteProfesores();
+    }    
 }
