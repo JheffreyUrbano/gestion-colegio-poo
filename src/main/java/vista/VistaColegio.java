@@ -18,19 +18,19 @@ public class VistaColegio extends javax.swing.JFrame {
     
     private ControladorColegio controlador;
     
-    // Variables de los componentes Swing
+    // variables
     private javax.swing.JTabbedPane pestanas;
     private javax.swing.JPanel pnlEstudiante;
     private javax.swing.JPanel pnlProfesor;
     private javax.swing.JPanel pnlReportes;
 
-    // Campos Estudiante
+    // estudiante campos
     private javax.swing.JTextField txtNomEst, txtDirEst, txtTelEst;
     private javax.swing.JTextField txtDiaEst, txtMesEst, txtAnioEst;
     private javax.swing.JTextField txtCodEst, txtGradoEst, txtPromEst;
     private javax.swing.JButton btnGuardarEst;
 
-    // Campos Profesor
+    // profesor campos
     private javax.swing.JTextField txtNomProf, txtDirProf, txtTelProf;
     private javax.swing.JTextField txtDiaProf, txtMesProf, txtAnioProf;
     private javax.swing.JTextField txtCedProf, txtAreaProf, txtSalHoraProf, txtHorasProf;
@@ -151,6 +151,44 @@ public class VistaColegio extends javax.swing.JFrame {
         pnlProfesor.add(btnGuardarProf);
 
         btnGuardarProf.addActionListener(evt -> accionRegistrarProfesor());
+        
+        
+        // impresion reportes
+        pnlReportes.setLayout(new java.awt.BorderLayout(10, 10));
+        pnlReportes.setBorder(javax.swing.BorderFactory.createEmptyBorder(15, 15, 15, 15));
+
+        javax.swing.JPanel pnlBotonesReporte = new javax.swing.JPanel(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 15, 5));
+        btnRepEstudiantes = new javax.swing.JButton("1. Ver Lista de Estudiantes");
+        btnRepProfesores = new javax.swing.JButton("2. Ver Profesores (Ordenados por Salario)");
+        pnlBotonesReporte.add(btnRepEstudiantes);
+        pnlBotonesReporte.add(btnRepProfesores);
+
+        txtAreaReportes = new javax.swing.JTextArea(14, 55);
+        txtAreaReportes.setEditable(false);
+        txtAreaReportes.setFont(new java.awt.Font("Monospaced", java.awt.Font.PLAIN, 12));
+        scrollReportes = new javax.swing.JScrollPane(txtAreaReportes);
+
+        pnlReportes.add(pnlBotonesReporte, java.awt.BorderLayout.NORTH);
+        pnlReportes.add(scrollReportes, java.awt.BorderLayout.CENTER);
+
+        btnRepEstudiantes.addActionListener(evt -> {
+            if (controlador != null) {
+                txtAreaReportes.setText(controlador.obtenerReporteEstudiantes());
+            }
+        });
+
+        btnRepProfesores.addActionListener(evt -> {
+            if (controlador != null) {
+                txtAreaReportes.setText(controlador.obtenerReporteProfesores());
+            }
+        });
+
+        pestanas.addTab("Registrar Estudiante", pnlEstudiante);
+        pestanas.addTab("Registrar Profesor", pnlProfesor);
+        pestanas.addTab("Reportes del Colegio", pnlReportes);
+
+        getContentPane().add(pestanas, java.awt.BorderLayout.CENTER);
+        pack();        
     }
     
     
