@@ -25,3 +25,4 @@ Thumbs.db
 
 # Archivos temporales creados por el diseñador Swing (Matisse) de NetBeans si aplica
 *.form.bak
+/nbproject/
